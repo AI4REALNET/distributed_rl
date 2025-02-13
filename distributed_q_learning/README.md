@@ -132,3 +132,7 @@ save_every = 10
 n_evals_calc = lambda _: 1 # lambda malf_rate: int(300 / malf_rate)
 eval_batch_size = 10_000
 ```
+
+Use the plot function to obtain the following training curve
+
+<img alt="Training curve" src="/plot/training.png" height=60px width=140px>
