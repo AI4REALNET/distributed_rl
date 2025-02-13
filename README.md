@@ -1,6 +1,5 @@
-# Deliverable D2.1 | Beta release
+# Deliverable D2.1 | Politecnico di Milano
 
-Politecnico di Milano
 Authors: Gianvito Losapio, Marco Mussi, Alberto Maria Metelli, Marcello Restelli
 
 ## Description
@@ -13,17 +12,31 @@ In the following, the code of the two algorithms will be presented separately.
 
 ## Distributed Q Learning algorithm (DQL)
 
-### Overview of code structure
+#### Short description of the algorithm
+The DQL algorithm is a distributed version of the popular Q-Learning algorithm [...]
+The original update of state-value function of an agent according to the Q-learning algorithm is:
+$$
+Q(s,a) = (1-\alpha) Q(s,a) + \alpha(r + \gamma\max_{a'} Q(s,a'))
+$$
+
+The distributed version instead has the following update for each agent:
+$$
+Q(s,a) = (1-\alpha) Q(s,a) + \alpha(r + \gamma\max_{a'} Q_{\text{next}}(s,a'))
+$$
+where $Q_{\text{next}}$ is the state-value function of the successor agent, i.e., the successor node in the graph.
 
 
-### Installation guide
+#### Overview of code structure
 
 
-### Input
+#### Installation guide
 
-### Output
 
-### Reproduce experiments
+#### Input
+
+#### Output
+
+#### Reproduce experiments
 
 
 ## State and Action Factorization algorithm (SAF)
