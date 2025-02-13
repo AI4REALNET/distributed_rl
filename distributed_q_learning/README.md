@@ -135,4 +135,4 @@ eval_batch_size = 10_000
 
 Use the plot function to obtain the following training curve
 
-<img alt="Training curve" src="/plot/training.png" height=60px width=140px>
+<img alt="Training curve" src="https://gitlab.inesctec.pt/cpes/european-projects/ai4realnet/politecnico-di-milano/beta_release/-/blob/main/distributed_q_learning/plot/training.png" height=60px width=140px>
