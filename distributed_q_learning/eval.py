@@ -144,7 +144,7 @@ def eval_batch(
 if __name__ == '__main__':
 
 
-    agent_path = "experiments/results_exp_12_3e5/5/qtables/qtable_400000.pkl"
+    agent_path = "experiments/reproduce_determinstic/1/qtables/qtable_400000.pkl"
 
     agent=TQLearningAgent.load(agent_path)
 

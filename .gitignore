@@ -1,0 +1,3 @@
+distributed_q_learning/experiments/*
+distributed_q_learning/venv_dql/*
+*.pyc

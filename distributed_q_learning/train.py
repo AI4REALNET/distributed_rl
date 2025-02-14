@@ -171,7 +171,7 @@ hp_configs = pd.DataFrame([
 ], columns=['epsilon', 'epsilon decay', 'alpha', 'alpha decay', 'n_episodes'])
 
 # Other parameters
-out_dir = 'experiments/results_exp_12_4e5_bis'
+out_dir = 'experiments/reproduce_determinstic'
 n_workers = multiprocessing.cpu_count()
 master_seed = 666
 log_every = 10_000
