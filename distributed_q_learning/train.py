@@ -1,6 +1,6 @@
 from flatland_tools.env import Environment, Node
 from flatland_tools.agent import TQLearningAgent
-from training_utils import train, eval_once, log2file
+from training_utils.training_utils import train, eval_once, log2file
 from typing import Tuple
 from flatland.envs.agent_utils import TrainState
 import pandas as pd
