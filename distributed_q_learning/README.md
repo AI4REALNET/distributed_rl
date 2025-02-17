@@ -1,7 +1,7 @@
 ## Distributed Q Learning algorithm (DQL)
 
 #### Short description of the algorithm
-The DQL algorithm is a distributed version of the popular Q-Learning algorithm [...]
+The DQL algorithm is a distributed version of the popular [Q-Learning algorithm](https://link.springer.com/article/10.1007/BF00992698)
 The original update of state-value function of an agent according to the Q-learning algorithm is:
 
 $$
@@ -16,9 +16,12 @@ $$
 
 where $Q_{\text{next}}$ is the state-value function of the successor agent, i.e., the successor node in the graph.
 
+The algorithm is tested on Flatland, in which each junction cell is modeled as a node in the graph. Each node is an independent RL agent that exchanges information with the successor node, i.e., where the train is sent starting from the current node.
+
 
 #### Overview of code structure
 :open_file_folder: **distributed_q_learning**
+
 ├── :open_file_folder: flatland tools
 
 │   └── ...
@@ -48,7 +51,7 @@ source venv_venv_dql/bin/activate
 pip install -r requirements.txt
 ```
 
-The main dependencies are `flatland-rl`, `numpy`, `scikit-learn`, `scipy`.
+The main dependencies are `flatland-rl`, `numpy`, `scikit-learn`, `scipy` (with python >= 3.6)
 
 
 #### Input
