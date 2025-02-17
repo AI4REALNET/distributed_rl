@@ -1,7 +1,8 @@
 ## Distributed Q Learning algorithm (DQL)
 
 #### Short description of the algorithm
-The DQL algorithm is a distributed version of the popular [Q-Learning algorithm](https://link.springer.com/article/10.1007/BF00992698)
+The DQL algorithm is a distributed version of the popular [Q-Learning algorithm](https://link.springer.com/article/10.1007/BF00992698).
+
 The original update of state-value function of an agent according to the Q-learning algorithm is:
 
 $$
@@ -38,7 +39,7 @@ The algorithm is tested on Flatland, in which each junction cell is modeled as a
 
 ├── eval.py
 
-The folder *flatland_tools* contains ..., the folder *training_utils* contains, the folder *plot* contains.
+The folder *flatland_tools* contains the wrapper to the Flatland environment, the folder *training_utils* contains auxiliary functions for the training phase, the folder *plot* contains a python script that can be used to generate plots of the training curves.
 The python scripts *train.py*, *eval.py* can be used to train and evaluate the DQL algorithm.
 
 
