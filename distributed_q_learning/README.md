@@ -56,7 +56,7 @@ The main dependencies are `flatland-rl`, `numpy`, `scikit-learn`, `scipy` (with 
 
 
 #### Input
-In the file *train.py* edit the following two parts.
+Inside the file *train.py* edit the following two parts.
 
 1) Inside the function *generate_env* set the following return options
     - `env_width`: the width of the flatland grid
@@ -75,6 +75,9 @@ In the file *train.py* edit the following two parts.
     - `save_every`: frequency of DQL model savings
     - `n_evals_calc`: number of evaluations
     - `eval_batch_size`: batch size used to compute evaluations
+
+
+Inside the file *eval.py* edit ...
 
 
 #### Output

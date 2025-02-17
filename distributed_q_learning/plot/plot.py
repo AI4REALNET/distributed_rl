@@ -60,8 +60,8 @@ if __name__=='__main__':
         plt.plot(x_axis, mv_avg_rewards, label=label)
 
 
-    plt.hlines(1000, xmin=0, xmax=4e5, colors='black', ls='--', lw=2)
-    plt.hlines(800, xmin=0, xmax=4e5, colors='grey', ls='--', lw=2)
+    plt.hlines(1000, xmin=0, xmax=4e5, colors='black', ls='--', lw=2, label='Upper bound')
+    plt.hlines(800, xmin=0, xmax=4e5, colors='grey', ls='--', lw=2, label='Empirically good')
     plt.grid(True, which="both", lw=0.5, ls='--')
     plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     plt.legend()
