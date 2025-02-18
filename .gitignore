@@ -3,3 +3,4 @@ distributed_q_learning/venv_dql/*
 *.pyc
 state_action_factorization/data/*
 state_action_factorization/fetch_data/*
+state_action_factorization/venv_clustering/*

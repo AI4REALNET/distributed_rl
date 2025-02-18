@@ -24,9 +24,9 @@ np.random.seed(SEED)
 if __name__=='__main__':
 
     # Inputs: modify as will
-    env_name = 'l2rpn_idf_2023'
-    n_episodes = 100
-    n_samples = 50
+    env_name = 'l2rpn_case14_sandbox'
+    n_episodes = 1000
+    n_samples = 50000
 
     quant_list = [0.7]
 
