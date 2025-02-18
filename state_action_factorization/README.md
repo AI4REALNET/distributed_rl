@@ -1,9 +1,5 @@
 # Distributed Reinforcement Learning for Power Grid Operations
 
-
-The underlying idea is to decompose the problem by splitting the MDP into sub-problems by estimating Mutual Information between pairs of state and action variables, that are then clustered so that variables that have high correlation with the same ones are grouped together. The code for this part is collected in the `clustering` folder. We made an experiment on a custom made MDP and one on a simple Grid2op environment.
-
-
 ### Short description of the algorithm
 
 The main idea is to define a fully connected graph $\mathcal{G}=(V,E)$ in which:
@@ -64,30 +60,33 @@ Replace `grid2op_patch/EpisodeData.py` in `.../venv_clustering/lib/python3.11/si
 
 Replace `grid2op_patch/aux_fun.py` in `.../venv_clustering/lib/python3.11/site-packages/grid2op/Runner/aux_fun.py`
 
+
 ### Input
 
-Run experiment on synthetic data
-```commandline
-python clustering/synthetic_data.py
-```
+In the file *main.py* you can modify the two variables `n_episodes` and `n_samples`. The first one is the number of time series that are used in the simulation for collecting the data, the second is the number of samples that are used in the computation of the Mutual Information estimator. The total number of samples collected depends on the survival of the agent in the simulation - if lower than `n_samples`, the MI is computed on all available samples.
 
-Run experiment on power grids
+The variable `env_name` is used to specify the environment of Grid2Op.
+
+
+To run experiment on Grid2Op run
 ```commandline
-python clustering/power_grid.py
+python main.py
 ```
-One can modify the two variables `n_episodes` and `n_samples`. The first one is the number of time series that are used in the simulation for collecting the data, the second is the number of samples that are used in the computation of the Mutual Information estimator. The total number of samples collected depends on the survival of the agent in the simulation, if it lower than `n_samples`, the MI is computed on all available samples. 
 
 
 ### Output
 
 
+
 ### Reproduce experiments
-To reproduce the results provided in the thesis, use the following settings:
+To reproduce the results provided in the paper [State and Action factorization in Power Grids](https://arxiv.org/abs/2409.04467), use the following settings:
 
 ```commandline
 SEED = 29
 n_episodes = 1000
 n_samples = 50000
+
+env_name = 'l2rpn_case14_sandbox'
 ```
 
 Tested on Ubuntu 18.04.6 LTS | RAM 8GB | Intel® Core™ i7-8750H CPU @ 2.20GHz × 12 

@@ -141,3 +141,6 @@ eval_batch_size = 10_000
 ```
 
 Use the plot function to obtain the [training curve](https://gitlab.inesctec.pt/cpes/european-projects/ai4realnet/politecnico-di-milano/beta_release/-/blob/main/distributed_q_learning/plot/training.png)
+
+Tested on Ubuntu 18.04.6 LTS | RAM 8GB | Intel® Core™ i7-8750H CPU @ 2.20GHz × 12 
+Running time: ~8h on 12 cores
