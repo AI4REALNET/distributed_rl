@@ -65,7 +65,7 @@ Replace `grid2op_patch/aux_fun.py` in `.../venv_clustering/lib/python3.11/site-p
 
 In the file *main.py* you can modify the two variables `n_episodes` and `n_samples`. The first one is the number of time series that are used in the simulation for collecting the data, the second is the number of samples that are used in the computation of the Mutual Information estimator. The total number of samples collected depends on the survival of the agent in the simulation - if lower than `n_samples`, the MI is computed on all available samples.
 
-The variable `env_name` is used to specify the environment of Grid2Op.
+The variable `env_name` is used to specify the environment of Grid2Op. The variable `quant_list` is used to specify the list of threshold considered that is applied to the adjacency matrix.
 
 
 To run experiment on Grid2Op run
@@ -87,6 +87,7 @@ n_episodes = 1000
 n_samples = 50000
 
 env_name = 'l2rpn_case14_sandbox'
+quant_list = [0.7]
 ```
 
 Tested on Ubuntu 18.04.6 LTS | RAM 8GB | Intel® Core™ i7-8750H CPU @ 2.20GHz × 12 
