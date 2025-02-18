@@ -11,6 +11,14 @@ from grid2op.Agent.agentWithConverter import AgentWithConverter
 from grid2op.Converter.Converters import Converter
 
 class SubIdToTopologyAct(Converter):
+    """
+    Subclass of Converter that converts the action space from a substation id to a topology action
+
+    Parameters
+    ----------
+    action_space: grid2op.ActionSpace
+        the action space to convert
+    """
 
     def __init__(self, action_space):
         Converter.__init__(self, action_space)
@@ -21,6 +29,16 @@ class SubIdToTopologyAct(Converter):
         self.kwargs_init = {}
 
     def init_converter(self, all_actions=None, **kwargs):
+        """
+        Initialize the converter with a list of all possible actions
+
+        Parameters
+        ----------
+        all_actions: list of grid2op.Action
+            the list of all possible actions
+        kwargs: dict
+            the arguments to initialize the converter
+        """
         self.kwargs_init = kwargs
         self.all_actions = self.get_all_unitary_topologies_set(self, **kwargs)
         self.n = len(self.all_actions)
@@ -29,6 +47,18 @@ class SubIdToTopologyAct(Converter):
         return self.all_actions[encoded_act]
 
 class TopologyRandomAgent(AgentWithConverter):
+    """
+    Subclass of AgentWithConverter that selects a random action from the action space
+
+    Parameters
+    ----------
+    action_space: grid2op.ActionSpace
+        the action space to convert
+    action_space_converter: grid2op.Converter
+        the converter to use to convert the action space
+    kwargs_converter: dict
+        the arguments to initialize the converter
+    """
     def __init__(
         self, action_space, action_space_converter=SubIdToTopologyAct, **kwargs_converter
     ):
@@ -42,6 +72,22 @@ class TopologyRandomAgent(AgentWithConverter):
 
 
 def run(sub_id, env, nb_episodes, seed, path):
+    """
+    Launch the runner for a given substation
+
+    Parameters
+    ----------
+    sub_id : int
+        The substation id
+    env : grid2op.Environment
+        The environment
+    nb_episodes : int
+        The number of episodes
+    seed : int
+        The seed
+    path : str
+        The output folder
+    """
     
     NB_CORE = mp.cpu_count() 
     PATH_SAVE = os.path.join(path, 'runs') 

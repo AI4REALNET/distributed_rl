@@ -6,6 +6,14 @@ import time
 from tqdm import tqdm
 
 def fetch(env, num_samples, path):
+    """
+    Fetch data from the runner folder
+
+    Parameters:
+    env: grid2op environment
+    num_samples: number of samples to fetch
+    path: path to the runner folder
+    """
 
     full_obs_dim = dict(zip(env.observation_space.attr_list_vect, env.observation_space.shape))
 

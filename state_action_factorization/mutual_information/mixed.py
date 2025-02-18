@@ -1,13 +1,28 @@
-#Copyright Weihao Gao, UIUC
-
 import scipy.spatial as ss
 from scipy.special import digamma
 from math import log
 import numpy.random as nr
 import numpy as np
 
-#Main Function
+
 def Mixed_KSG(x,y,k=5):
+	"""
+	Compute the Mutual Information between two continuous variables x and y using the Mixed Kraskov-Steinwart algorithm
+
+	Parameters
+	----------
+	x : numpy array
+		The first continuous variable
+	y : numpy array
+		The second continuous variable
+	k : int
+		The number of nearest neighbors to consider (default is 5)
+
+	Returns
+	-------
+	ans : float
+		The mutual information between x and y
+	"""
 	N = len(x)
 	if x.ndim == 1:
 		x = x.reshape((N,1))
