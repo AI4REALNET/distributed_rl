@@ -13,7 +13,7 @@ import multiprocessing
 
 class ModifiedEnv(Environment):
     """
-    This environment produces a slightly different observation:
+   A wrapper to the Flatland environment that produces a slightly different observation:
     - station_id: the station identifier of the target station
     - node_id: the node identifier of the current node
     - delay: the delay of the train
@@ -23,6 +23,7 @@ class ModifiedEnv(Environment):
         - 2: no train coming towards me, but there is a malfunctioning train
     - semaphore_edge_1:
         same as semaphore_edge_0 but for edge 1
+        
     """
 
     def __init__(self, *args, **kwargs):
@@ -88,6 +89,22 @@ class ModifiedEnv(Environment):
 def generate_env(malf_rate, malf_min, malf_max, malf_seed=0):
     """
     Returns a modified environment with the given malfunction parameters
+
+    Parameters
+    ----------
+    malf_rate: float
+        The malfunction rate
+    malf_min: int
+        The minimum malfunction duration
+    malf_max: int
+        The maximum malfunction duration
+    malf_seed: int
+        The seed for the malfunction generator
+
+    Returns
+    -------
+    ModifiedEnv
+        The modified environment
     """
     return ModifiedEnv(
         env_width=40,
@@ -124,6 +141,25 @@ def eval_batch(
 ):
     """
     Evaluates the agent on a batch of environments with the given malfunction parameters
+
+    Parameters
+    ----------
+    malf_rate: float
+        The malfunction rate
+    malf_min: int
+        The minimum malfunction duration
+    malf_max: int
+        The maximum malfunction duration
+    agent: TQLearningAgent
+        The agent to evaluate
+    malf_seeds: np.ndarray[int]
+        The seeds for the malfunction generators
+    exp_id: int
+        The experiment id
+    first_eval_id: int
+        The id of the first evaluation in this batch
+    out_dir: str
+        The output directory
     """
     env = generate_env(malf_rate, malf_min, malf_max)
     eval_df = []

@@ -8,6 +8,16 @@ import pandas as pd
 import pickle
 
 def log2file(log_file: str, text: str):
+    """
+    Logs text to a file
+    
+    Parameters:
+    ----------
+    log_file: str
+        The file to log to
+    text: str
+        The text to log
+    """
     with open(log_file, 'a') as f:
         print(f'{time.ctime()}: {text}', file=f, flush=True)
 

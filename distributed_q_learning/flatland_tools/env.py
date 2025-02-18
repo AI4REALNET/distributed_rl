@@ -17,6 +17,18 @@ from flatland.utils.rendertools import RenderTool
 from numpy.random.mtrand import RandomState
 
 class Node:
+    """
+    A node in the graph representation of the environment.
+
+    Parameters
+    ----------
+    row : int
+        The row of the node
+    col : int
+        The column of the node
+    dir : int
+        The direction of the train at the node
+    """
     def __init__(self, row: int, col: int, dir: int):
         self.row = row
         self.col = col
@@ -35,6 +47,19 @@ class Node:
         return '(' + str(self.row) + ', ' + str(self.col) + ', ' + str(self.dir) + ')'
     
 class EdgeData:
+    """
+    EdgeData represents the data associated with an edge in the graph representation of the environment.
+
+    Parameters
+    ----------
+    mask : np.ndarray[bool]
+        A boolean mask of the size of the grid where True values represent the position occupied by the edge
+    action : RailEnvActions
+        The action to perform to move from the source node to the destination node
+    direction_mask : np.ndarray[int]
+        A matrix of the size of the grid where each cell contains the direction of the path or -1 if not part of the path
+
+    """
     def __init__(self, mask: np.ndarray[bool], action: RailEnvActions, direction_mask: np.ndarray[int] = None):
         self.mask = mask
         self.action = action
@@ -57,6 +82,14 @@ class MultiGraphRepresentation:
         return self.__nodes
 
     def edges(self) -> List[Tuple[Node, Node, EdgeData]]:
+        """
+        Returns a list of tuples (src, dst, edge_data) representing the edges of the graph
+        
+        Returns
+        -------
+        List[Tuple[Node, Node, EdgeData]]
+            A list of tuples (src, dst, edge_data) representing the edges of the graph
+        """
         _edges = []
         for src, dst in self.__edge_data:
             for edge_data in self.__edge_data[src, dst]:
@@ -67,6 +100,19 @@ class MultiGraphRepresentation:
         return node in self.__nodes
 
     def fw_star(self, node: Node) -> List[Tuple[Node, EdgeData]]:
+        """
+        Returns the forward star of a node, i.e. the list of nodes that are reachable from the given node
+        
+        Parameters
+        ----------
+        node : Node
+            The node to consider
+            
+        Returns
+        -------
+        List[Tuple[Node, EdgeData]]
+            The forward star of the node
+        """
         if not self.has_node(node):
             return []
         result = []
@@ -76,6 +122,19 @@ class MultiGraphRepresentation:
         return result
     
     def bw_star(self, node: Node) -> List[Tuple[Node, EdgeData]]:
+        """
+        Returns the backward star of a node, i.e. the list of nodes that can reach the given node
+        
+        Parameters
+        ----------
+        node : Node
+            The node to consider
+            
+        Returns
+        -------
+        List[Tuple[Node, EdgeData]]
+            The backward star of the node
+        """
         if not self.has_node(node):
             return []
         result = []
@@ -87,6 +146,11 @@ class MultiGraphRepresentation:
     def add_node(self, node: Node):
         """
         Adds a node to the graph if it does not exist.
+
+        Parameters
+        ----------
+        node : Node
+            The node to add
         """
         if not self.has_node(node):
             self.__nodes.add(node)
@@ -96,6 +160,11 @@ class MultiGraphRepresentation:
     def delete_node(self, node: Node):
         """
         Deletes a node from the graph with all the incoming and outgoing edges.
+
+        Parameters
+        ----------
+        node : Node
+            The node to delete
         """
         if node in self.__nodes:
             self.__nodes.remove(node)
@@ -109,6 +178,15 @@ class MultiGraphRepresentation:
     def add_edge(self, src: Node, dst: Node, edge_data: EdgeData):
         """
         Adds an edge to the graph, if nodes do not exist, they are created.
+
+        Parameters
+        ----------
+        src : Node
+            The source node
+        dst : Node
+            The destination node
+        edge_data : EdgeData
+            The data associated with the edge
         """
         self.add_node(src)
         self.add_node(dst)
@@ -122,6 +200,15 @@ class MultiGraphRepresentation:
         """
         Deletes an edge with the given EdgeData from the graph if it exists, if edge_data is not given,
         it removes all edges with the given src and dst nodes from the graph
+
+        Parameters
+        ----------
+        src : Node
+            The source node
+        dst : Node
+            The destination node
+        edge_data : EdgeData | Any
+            The data associated with the edge
         """
         if (src, dst) in self.__edge_data:
             if edge_data is not None:
@@ -145,6 +232,14 @@ class MultiGraphRepresentation:
             self.delete_node(node)
 
 class EnvGraph(MultiGraphRepresentation):
+    """
+    A graph representation of the environment.
+    
+    Parameters
+    ----------
+    env : RailEnv
+        The environment
+    """
     def __init__(self, env: RailEnv):
         super().__init__()
         # Create edges
@@ -255,6 +350,16 @@ class EnvGraph(MultiGraphRepresentation):
             return RailEnvActions.MOVE_LEFT
 
     def render(self, figsize: Tuple[int, int] = (20, 20), save : str | Any = None):
+        """
+        Renders the graph representation of the environment.
+        
+        Parameters
+        ----------
+        figsize : Tuple[int, int]
+            The size of the figure
+        save : str | Any
+            The path to save the figure
+        """
         G = nx.DiGraph()
         pos = {}
         labels = {}
@@ -311,6 +416,21 @@ class EnvGraph(MultiGraphRepresentation):
         return mask
 
 def one_hot(value: int, n_values: int):
+    """
+    Returns a one-hot encoding of the given value.
+    
+    Parameters
+    ----------
+    value : int
+        The value to encode
+    n_values : int
+        The number of possible values
+
+    Returns
+    -------
+    List[int]
+        A one-hot encoding of the given value    
+    """
     return [1 if value == i else 0 for i in range(n_values)]
 
 def zeros(n: int):
@@ -319,12 +439,39 @@ def zeros(n: int):
 def manhattan(src_row: int, src_col: int, dst_row: int, dst_col: int):
     """
     Computes manhattan distance between two points.
+
+    Parameters
+    ----------
+    src_row : int
+        The row of the source point
+    src_col : int
+        The column of the source point
+    dst_row : int
+        The row of the destination point
+    dst_col : int
+        The column of the destination point
+
+    Returns
+    -------
+    int
+        The manhattan distance between the two points
     """
     return abs(src_row - dst_row) + abs(src_col - dst_col)
 
 class ReproducibleParamMalfunctionGen:
     """
     Reproducible Malfunction Generator
+
+    Parameters
+    ----------
+    malfunction_rate : float
+        The rate of malfunction
+    min_duration : int
+        The minimum duration of a malfunction
+    max_duration : int
+        The maximum duration of a malfunction
+    seed : int
+        The seed for reproducibility
     """
     def __init__(self, malfunction_rate: float, min_duration: int, max_duration: int, seed: int):
         self.MFP = MalfunctionParameters(malfunction_rate, min_duration, max_duration)
@@ -352,6 +499,38 @@ class ReproducibleParamMalfunctionGen:
         return MalfunctionProcessData(*self.MFP)
 
 class Environment:
+    """
+    A wrapper around the flatland environment that provides a graph representation of the environment
+    
+    Parameters
+    ----------
+    env_width : int
+        The width of the environment
+    env_height : int
+        The height of the environment
+    env_n_cities : int
+        The number of cities in the environment
+    env_n_trains : int
+        The number of trains in the environment
+    seed : int
+        The seed for reproducibility
+    destination_bonus : float
+        The bonus reward for reaching the destination
+    deadlock_penalty : float
+        The penalty for deadlock
+    delay_threshold : float
+        The threshold for discretizing the delay
+    malfunction_rate : float
+        The rate of malfunction
+    malfunction_min_duration : int
+        The minimum duration of a malfunction
+    malfunction_max_duration : int
+        The maximum duration of a malfunction
+    malfunction_seed : int
+        The seed for the malfunction generator
+    init_renderer : bool
+        Whether to initialize the renderer
+    """
     def __init__(
         self, 
         env_width, 
@@ -367,7 +546,7 @@ class Environment:
         malfunction_max_duration: int,
         malfunction_seed: int = None, # if none, it will be the same as seed
         init_renderer=False
-    ):
+    ):    
         self.seed = seed
         self.malfunction_seed = seed if malfunction_seed is None else malfunction_seed
         self.destination_bonus = destination_bonus
@@ -397,6 +576,16 @@ class Environment:
             self.renderer = RenderTool(self.rail_env, gl="PILSVG")
 
     def reset(self, step_until_action_required=False, reset_malfunctions=False):
+        """
+        Resets the environment
+        
+        Parameters
+        ----------
+        step_until_action_required : bool
+            Whether to step until an action is required
+        reset_malfunctions : bool
+            Whether to reset malfunctions
+        """
         self.rail_env.reset(regenerate_rail=False, regenerate_schedule=False, random_seed=self.seed)
         self.stations = {
             station_pos: station_id 
@@ -424,6 +613,21 @@ class Environment:
         print_node_ids: bool = False, 
         print_single_rail: np.ndarray[bool] = None
     ):
+        """
+        Renders the environment
+        
+        Parameters
+        ----------
+        figsize : Tuple[int, int]
+            The size of the figure
+        print_train_numbers : bool
+            Whether to print the train numbers
+        print_node_ids : bool
+            Whether to print the node ids
+        print_single_rail : np.ndarray[bool]
+            A boolean mask of the size of the grid where True values represent the position
+            of the single rail
+        """
         fig, ax = plt.subplots(1, 1, figsize=figsize)
         plt.axis('off')
         self.renderer.render_env(show_inactive_agents=False)
@@ -471,6 +675,19 @@ class Environment:
         return observations
     
     def _get_reward_for_node(self, node: Node) -> float:
+        """
+        Returns the reward for the given node
+        
+        Parameters
+        ----------
+        node : Node
+            The node to consider
+            
+        Returns
+        -------
+        float
+            The reward for the given node
+        """
         node_id = self.node_to_id[node]
         r = self.rewards[node_id].copy()
         self.rewards[node_id] = 0
@@ -496,6 +713,21 @@ class Environment:
         return station_id, self.node_to_id[node], delay, sem_0, sem_1
     
     def _compute_semaphore(self, node: Node, edge_idx: int) -> bool:
+        """
+        Returns True if the semaphore is activated, False otherwise
+        
+        Parameters
+        ----------
+        node : Node
+            The node to consider
+        edge_idx : int
+            The index of the edge to consider
+
+        Returns
+        -------
+        bool
+            True if the semaphore is activated, False otherwise
+        """
         _, edge_data = self.graph.fw_star(node)[edge_idx]
         for train in self.rail_env.agents:
             row, col = train.position if train.position is not None else train.initial_position
@@ -512,12 +744,40 @@ class Environment:
         return False
 
     def _compute_delay(self, train_id: int):
+        """
+        Returns the delay of the given train
+        
+        Parameters
+        ----------
+        train_id : int
+            The id of the train
+
+        Returns
+        -------
+        int
+            The delay of the given train
+        """
         train = self.rail_env.agents[train_id]
         row, col = train.position if train.position is not None else train.initial_position
         min_dist_to_target = self.rail_env.distance_map.get()[train_id, row, col, train.direction]
         return self.rail_env._elapsed_steps - train.latest_arrival + min_dist_to_target
 
     def _discretize_delay(self, train_id: int, delay: int) -> int:
+        """
+        Discretizes the delay of the given train
+        
+        Parameters
+        ----------
+        train_id : int
+            The id of the train
+        delay : int
+            The delay of the train
+            
+        Returns
+        -------
+        int
+            The discretized delay of the given train
+        """
         train = self.rail_env.agents[train_id]
         available_time = train.latest_arrival - train.earliest_departure
         if delay <= 0:
@@ -542,6 +802,21 @@ class Environment:
         return self._step_low_level(fl_actions, step_until_action_required)
     
     def _step_low_level(self, actions: Dict[int, RailEnvActions], step_until_action_required: bool = False) -> bool:
+        """
+        Executes the given actions on the Flatland environment
+
+        Parameters
+        ----------
+        actions : Dict[int, RailEnvActions]
+            The actions to execute
+        step_until_action_required : bool
+            Whether to step until an action is required
+
+        Returns
+        -------
+        bool
+            True if the environment is done, False otherwise
+        """
         self.rail_env.step(actions)
         self._update_rewards()
         if self._check_deadlocks():
@@ -555,6 +830,14 @@ class Environment:
         return self.rail_env.dones['__all__']
     
     def _check_deadlocks(self) -> bool:
+        """
+        Checks for deadlocks and updates the rewards accordingly
+
+        Returns
+        -------
+        bool
+            True if a deadlock is detected, False otherwise
+        """
         locked_by = {
             train_id: self._train_locked_by(train_id)
             for train_id in range(self.rail_env.get_num_agents())
@@ -583,6 +866,16 @@ class Environment:
     def _train_locked_by(self, train_id: int) -> Set[int]:
         """
         Returns empty set if train can move, otherwise returns the set of train_ids that are blocking it.
+
+        Parameters
+        ----------
+        train_id : int
+            The id of the train
+
+        Returns
+        -------
+        Set[int]
+            The set of train_ids that are blocking the given train
         """
         train = self.rail_env.agents[train_id]
         if train.position is None:
@@ -612,6 +905,9 @@ class Environment:
         return locked_by
 
     def _update_rewards(self):
+        """
+        Updates the rewards based on the current state of the environment
+        """
         # Compute rewards for trains that have arrived
         for train_id, done in self.rail_env.dones.items():
             if train_id == '__all__':
@@ -634,6 +930,9 @@ class Environment:
                 self.train_to_last_node[train_id] = (node, curr_delay)
 
     def end_episode(self):
+        """
+        Ends the episode and returns the rewards
+        """
         r = self.rewards.copy()
         self.rewards = np.zeros(len(self.nodes))
         return r
