@@ -77,7 +77,7 @@ python main.py
 
 
 ### Output
-
+A folder `data` is created containing three different versions of the adjacency matrix, i.e., the original one, the shuffled and the unbiased one (format .npy). The unbiased matrix is used to get the final diagonal matrix that is plotted in the subfolder `diagonalizations`. Each block corresponds to an independent Markov Decision Process. Additionally, a subfolder for each substation of the grid is created containing the data extracted for that substation (format .npz) from the environment Grid2Op.
 
 
 ### Reproduce experiments
