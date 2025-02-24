@@ -1,14 +1,7 @@
-from flatland_tools.env import Environment, Node
+from flatland_tools.env import Environment
 from flatland_tools.agent import TQLearningAgent
-from training_utils import train, eval_once, log2file
-from typing import Tuple
-from flatland.envs.agent_utils import TrainState
 import pandas as pd
 import numpy as np
-import concurrent.futures
-import uuid
-import time
-import multiprocessing
 
 
 import sys 
@@ -18,7 +11,6 @@ sys.path.append(os.path.abspath('../'))
 from flatland_tools.agent import TQLearningAgent
 
 from train import generate_env
-from training_utils import eval_once
 
 def eval_once(
     env: Environment,
@@ -144,7 +136,7 @@ def eval_batch(
 if __name__ == '__main__':
 
 
-    agent_path = "experiments/reproduce_determinstic/1/qtables/qtable_400000.pkl"
+    agent_path = "./experiments/reproduce_deterministic/2/qtables/qtable_400000.pkl"
 
     agent=TQLearningAgent.load(agent_path)
 
