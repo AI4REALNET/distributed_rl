@@ -40,7 +40,7 @@ The algorithm is tested on Flatland, in which each junction cell is modeled as a
 ├── eval.py
 
 The folder *flatland_tools* contains the wrapper to the Flatland environment, the folder *training_utils* contains auxiliary functions for the training phase, the folder *plot* contains a python script that can be used to generate plots of the training curves.
-The python scripts *train.py*, *eval.py* can be used to train and evaluate the DQL algorithm.
+The python script *train.py* can be used to train the DQL algorithm.
 
 
 #### Installation guide
@@ -76,8 +76,6 @@ Inside the file *train.py* edit the following two parts.
     - `n_evals_calc`: number of evaluations
     - `eval_batch_size`: batch size used to compute evaluations
 
-
-Inside the file *eval.py* edit ...
 
 
 #### Output
