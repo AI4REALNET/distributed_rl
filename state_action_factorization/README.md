@@ -1,4 +1,4 @@
-# Distributed Reinforcement Learning for Power Grid Operations
+# State and Action factorization (SAF)
 
 ### Short description of the algorithm
 
