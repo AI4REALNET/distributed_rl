@@ -110,30 +110,25 @@ Before the main, edit the variables as follows:
 # Malfunction configurations
 malf_configs = pd.DataFrame([
     [0., 0, 0],
-    # [1e-3, 5, 15],
-    # [1e-3, 15, 30],
-    # [5e-3, 5, 15],
-    # [5e-3, 15, 30]
 ], columns=['rate', 'min', 'max'])
 
 # Hyperparameters
 hp_configs = pd.DataFrame([
-    # Best hps from exp 12
-    [1.0, 0.99997, 0.1, 0.99999, int(4e5)],  # blue
-    [1.0, 0.999965, 0.1, 0.99999, int(4e5)],  # orange
-    [1.0, 0.99997, 0.01, 1., int(4e5)],  # green
-    [1.0, 0.999965, 0.01, 1.00000, int(4e5)],  # red
-    [1.0, 0.999975, 0.1, 0.99999, int(4e5)],  # purple
-    [1.0, 0.999975, 0.01, 1, int(4e5)]  # brown
+    [1.0, 0.99997, 0.1, 0.99999, int(4e5)],
+    [1.0, 0.999965, 0.1, 0.99999, int(4e5)],
+    [1.0, 0.99997, 0.01, 1., int(4e5)],
+    [1.0, 0.999965, 0.01, 1.00000, int(4e5)],
+    [1.0, 0.999975, 0.1, 0.99999, int(4e5)],
+    [1.0, 0.999975, 0.01, 1, int(4e5)]
 ], columns=['epsilon', 'epsilon decay', 'alpha', 'alpha decay', 'n_episodes'])
 
 # Other parameters
-out_dir = 'experiments/test'
+out_dir = 'experiments/reproduce_deterministic'
 n_workers = multiprocessing.cpu_count()
 master_seed = 666
-log_every = 10
-save_every = 10
-n_evals_calc = lambda _: 1 # lambda malf_rate: int(300 / malf_rate)
+log_every = 10_000
+save_every = 10_000
+n_evals_calc = lambda _: 1
 eval_batch_size = 10_000
 ```
 
