@@ -1,22 +1,6 @@
 # State and Action factorization (SAF)
 
-### Short description of the algorithm
-
-The main idea is to define a fully connected graph $\mathcal{G}=(V,E)$ in which:
-
-- $V$ is the set of nodes containing all the state and action components from $\mathbf{s}, \mathbf{a}$ and all the next state components from $\mathbf{s'}$
-
-- $E$ is the set of edges representing the interactions among components
-    
-    $$
-    E = \{(x_i,s'_j) \,|\, x_i,s'_j\in V\; \text{and}\; c(x_i,s'_j)\geq \delta\},
-    $$
-    
-    where $c(x_i,s'_j)$ is a metric that measures how much a variable $x_i$ (state or action component) is important to predict the variable $s'_j$ (next state component), with $\delta$ being a suitable threshold.
-
-The metric that is used in this algorithm is the mutual information, i.e., the amount of information (or, equivalently, reduction in uncertainty) that knowing either variable provides about the other.
-
-A dataset is collected from the environment and the adjacency matrix of the graph $\mathcal{G}$ is computed. The matrix is then filtered with a suitable theshold and the diagonal blocks are used to define a factorization of the original Markov Decision Process, $\big( \widehat{\mathcal{S}}_k, \widehat{\mathcal{A}}_k  \big)_{k=1}^{\widehat{K}}$ that ideally matches the true factorization $\big(\mathcal{S}_k, \mathcal{A}_k  \big)_{k=1}^{K}$.
+![text](https://drive.google.com/file/d/1-IpbwXPdFQk2DpWta_Prtt6qTXA2-XV1/view?usp=sharing)
 
 
 #### Overview of code structure
