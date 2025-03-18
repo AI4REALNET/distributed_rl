@@ -1,6 +1,6 @@
 # State and Action factorization (SAF)
 
-![text](https://drive.google.com/file/d/1-IpbwXPdFQk2DpWta_Prtt6qTXA2-XV1/view?usp=sharing)
+![Short description of the algorithm](https://drive.google.com/uc?export=view&id=1-IpbwXPdFQk2DpWta_Prtt6qTXA2-XV1)
 
 
 #### Overview of code structure
