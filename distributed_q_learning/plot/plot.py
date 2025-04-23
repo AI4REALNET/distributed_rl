@@ -26,7 +26,7 @@ decay_name = {
 
 if __name__=='__main__':
 
-    resdir = '../experiments/reproduce_determinstic/'
+    resdir = '../experiments/reproduce_deterministic/'
 
     parq_list = glob.glob(join(resdir, '*/tr_rewards.parquet'))
     config_list = glob.glob(join(resdir, '*/*_config.csv'))
