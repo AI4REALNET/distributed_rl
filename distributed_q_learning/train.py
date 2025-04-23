@@ -207,7 +207,7 @@ hp_configs = pd.DataFrame([
 ], columns=['epsilon', 'epsilon decay', 'alpha', 'alpha decay', 'n_episodes'])
 
 # Other parameters
-out_dir = 'experiments/reproduce_determinstic'
+out_dir = 'experiments/reproduce_deterministic'
 n_workers = multiprocessing.cpu_count()
 master_seed = 666
 log_every = 10_000
